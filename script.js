@@ -39,8 +39,8 @@ const roles = [
   "Curious problem solver."
 ];
 
-if (!reducedMotion) {
-  const roleElement = document.querySelector("#typed-role");
+const roleElement = document.querySelector("#typed-role");
+if (!reducedMotion && roleElement) {
   let roleIndex = 0;
   let characterIndex = roles[0].length;
   let deleting = true;

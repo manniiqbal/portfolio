@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A technical case study of Mustafa Iqbal's AI-assisted pneumonia chest X-ray triage system.">
+  <meta name="theme-color" content="#10130f">
+  <title>Pneumonia X-Ray Triage System — Mustafa Iqbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="Mustafa Iqbal, portfolio home">M<span>.</span></a>
+    <nav aria-label="Case study navigation">
+      <a href="index.html#projects">← Portfolio</a>
+      <a href="#results">Results</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-hero">
+      <div class="case-hero-copy reveal">
+        <p class="section-kicker">Computer vision / technical case study</p>
+        <h1>Pneumonia<br><em>X-Ray Triage</em></h1>
+        <p class="case-subtitle">AI-assisted chest X-ray prioritisation using transfer learning and explainable computer vision.</p>
+        <div class="case-badges">
+          <span>Research prototype</span>
+          <span>Decision support</span>
+          <span>Not a diagnosis</span>
+        </div>
+      </div>
+      <div class="headline-results reveal">
+        <div><strong>0.861</strong><span>Test ROC-AUC</span></div>
+        <div><strong>89.3%</strong><span>Test sensitivity</span></div>
+        <div><strong>28,448</strong><span>Adult frontal X-rays</span></div>
+      </div>
+    </section>
+
+    <section class="case-visual reveal" aria-labelledby="visual-caption">
+      <img src="assets/images/pneumonia_triage_demo.png" alt="Original chest X-ray beside a Grad-CAM overlay showing regions that influenced the model risk score">
+      <p id="visual-caption">Example high-priority chest X-ray with Grad-CAM visualisation of regions influencing the model’s prediction.</p>
+    </section>
+
+    <section class="case-section overview-section">
+      <div class="case-section-label"><span>01</span><p>Overview</p></div>
+      <div class="case-section-content reveal">
+        <p class="case-lead">Built a computer vision pipeline for AI-assisted chest X-ray triage. Rather than attempting an autonomous medical diagnosis, the system ranks scans by pneumonia-related risk so higher-risk cases can be prioritised for review.</p>
+        <p>The pipeline handles raw DICOM images, performs medical-image preprocessing, fine-tunes a pretrained ResNet18, applies a sensitivity-optimised decision threshold, and uses Grad-CAM to visualise regions that influenced individual predictions.</p>
+        <div class="triage-note">
+          <strong>Triage ≠ diagnosis</strong>
+          <p>This research prototype prioritises a review queue. It is not clinically validated and does not make autonomous diagnoses.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-section-label"><span>02</span><p>Pipeline</p></div>
+      <div class="case-section-content reveal">
+        <div class="pipeline" aria-label="Model processing pipeline">
+          <div><strong>DICOM</strong><span>raw X-ray</span></div><i>→</i>
+          <div><strong>Preprocess</strong><span>224 × 224</span></div><i>→</i>
+          <div><strong>ResNet18</strong><span>fine-tuned</span></div><i>→</i>
+          <div><strong>Risk score</strong><span>ranked output</span></div><i>→</i>
+          <div><strong>Priority</strong><span>review queue</span></div><i>→</i>
+          <div><strong>Grad-CAM</strong><span>model influence</span></div>
+        </div>
+        <div class="detail-grid preprocessing-grid">
+          <article><span>01</span><p>DICOM files read with <b>pydicom</b>, including MONOCHROME1 inversion.</p></article>
+          <article><span>02</span><p>Per-image intensity normalisation followed by resizing to 224 × 224.</p></article>
+          <article><span>03</span><p>Grayscale data copied into three identical channels for the pretrained model.</p></article>
+          <article><span>04</span><p>ImageNet normalisation, with small random rotations applied during training.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section dataset-section">
+      <div class="case-section-label"><span>03</span><p>Dataset</p></div>
+      <div class="case-section-content reveal">
+        <h2>28,448 <em>adult frontal chest X-rays</em></h2>
+        <div class="split-grid">
+          <div><strong>19,913</strong><span>Training</span><i style="--share:70%"></i></div>
+          <div><strong>4,267</strong><span>Validation</span><i style="--share:15%"></i></div>
+          <div><strong>4,268</strong><span>Test</span><i style="--share:15%"></i></div>
+        </div>
+        <p>Positive lung-opacity/pneumonia targets represented approximately <strong>23.3%</strong> of the training data. The model uses the challenge-defined target; its output is not presented as a definitive clinical pneumonia diagnosis.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="case-section-label"><span>04</span><p>Modelling</p></div>
+      <div class="case-section-content reveal">
+        <div class="model-grid">
+          <article><span>Backbone</span><strong>ResNet18</strong><p>ImageNet-pretrained with its classifier replaced by a single binary output. The full network was fine-tuned.</p></article>
+          <article><span>Optimisation</span><strong>Adam · 1e−4</strong><p>BCEWithLogitsLoss with a 3.29 positive-class weight to address class imbalance.</p></article>
+          <article><span>Selection</span><strong>Best of 10</strong><p>The checkpoint with the lowest validation loss was retained, rather than the final epoch.</p></article>
+        </div>
+        <div class="training-story">
+          <div>
+            <p class="mini-label">Best checkpoint / epoch 2</p>
+            <strong>0.6800</strong><span>validation loss</span>
+            <strong>0.8794</strong><span>validation ROC-AUC</span>
+          </div>
+          <div>
+            <p class="mini-label">Why epoch 2?</p>
+            <p>Validation performance stopped improving after the first few epochs while training accuracy kept rising, eventually reaching 94.8%. This divergence indicated overfitting, so the best validation checkpoint was restored.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section threshold-section">
+      <div class="case-section-label"><span>05</span><p>Triage threshold</p></div>
+      <div class="case-section-content reveal">
+        <h2>0.3824 <em>selected risk-score threshold</em></h2>
+        <p>The default 0.5 cut-off was not used blindly. A threshold targeting at least 90% sensitivity was selected using only the validation set, then locked before test evaluation.</p>
+        <div class="inline-metrics">
+          <div><strong>90.24%</strong><span>Validation sensitivity</span></div>
+          <div><strong>65.99%</strong><span>Validation specificity</span></div>
+          <div><strong>0</strong><span>Test-set tuning decisions</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section results-section" id="results">
+      <div class="case-section-label"><span>06</span><p>Final test</p></div>
+      <div class="case-section-content reveal">
+        <div class="results-grid">
+          <div><strong>0.8610</strong><span>ROC-AUC</span></div>
+          <div><strong>89.25%</strong><span>Sensitivity</span></div>
+          <div><strong>66.21%</strong><span>Specificity</span></div>
+          <div><strong>44.53%</strong><span>Precision</span></div>
+          <div><strong>0.5942</strong><span>F1 score</span></div>
+        </div>
+        <div class="confusion-wrap">
+          <div class="confusion-matrix" aria-label="Test confusion matrix">
+            <div class="cm-empty"></div><span>Predicted −</span><span>Predicted +</span>
+            <span>Actual −</span><div class="cm-good"><strong>2,167</strong><small>True negatives</small></div><div><strong>1,106</strong><small>False positives</small></div>
+            <span>Actual +</span><div><strong>107</strong><small>False negatives</small></div><div class="cm-good"><strong>888</strong><small>True positives</small></div>
+          </div>
+          <p>The system deliberately favours sensitivity over precision because its intended use is triage: missing a positive scan is treated as more costly than unnecessarily prioritising a negative scan for review.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section ranking-section">
+      <div class="case-section-label"><span>07</span><p>Ranking</p></div>
+      <div class="case-section-content reveal">
+        <div class="ranking-highlight"><strong>18 / 20</strong><p>of the highest-ranked test scans were genuinely positive.</p></div>
+        <p>Every test scan receives a model risk score. Sorting from highest to lowest creates a review queue that concentrates high-risk scans near the top. The top-20 observation is an intuitive ranking example, not the primary evaluation metric.</p>
+        <div class="queue" aria-label="Illustrative triage queue structure">
+          <div><span>Rank</span><span>Risk score</span><span>Priority</span></div>
+          <div><strong>01</strong><i></i><span>Earlier review</span></div>
+          <div><strong>02</strong><i></i><span>Earlier review</span></div>
+          <div><strong>03</strong><i></i><span>Earlier review</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section explainability-section">
+      <div class="case-section-label"><span>08</span><p>Explainability</p></div>
+      <div class="case-section-content reveal">
+        <p class="case-lead">Grad-CAM uses gradients flowing into the model’s final convolutional layers to highlight image regions that most strongly influenced a prediction.</p>
+        <figure class="gradcam-figure">
+          <img src="assets/images/pneumonia_triage_demo.png" alt="Chest X-ray and Grad-CAM model influence overlay">
+          <figcaption>The highlighted regions represent model influence, not confirmed pathological localisation.</figcaption>
+        </figure>
+        <div class="future-visual-slot">
+          <span>Designed for extension</span>
+          <p>A future failure-analysis visual can compare true-positive, true-negative, false-positive, and false-negative cases here without restructuring the page.</p>
+          <code>assets/images/gradcam_error_analysis.png</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section limitations-section" id="limitations">
+      <div class="case-section-label"><span>09</span><p>Limitations</p></div>
+      <div class="case-section-content reveal">
+        <h2>What this system<br><em>does not claim</em></h2>
+        <ul class="limitations-list">
+          <li><span>01</span><p>Sigmoid outputs are model risk scores, not calibrated clinical probabilities.</p></li>
+          <li><span>02</span><p>This version uses an image-level split. PatientID metadata was effectively unique per scan, so future work should recover reliable source identifiers and enforce patient-level splitting.</p></li>
+          <li><span>03</span><p>Grad-CAM does not prove that highlighted regions correspond to true pathology.</p></li>
+          <li><span>04</span><p>This is a research and portfolio decision-support prototype—not clinically validated software and not intended for autonomous diagnosis.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section future-section">
+      <div class="case-section-label"><span>10</span><p>Next steps</p></div>
+      <div class="case-section-content reveal">
+        <div class="future-grid">
+          <span>Probability calibration</span>
+          <span>Patient-level splitting</span>
+          <span>Localisation comparison</span>
+          <span>Stronger regularisation</span>
+          <span>Architecture comparison</span>
+          <span>Interactive triage interface</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="case-footer">
+    <a href="index.html#projects">← Back to portfolio</a>
+    <p>Research prototype · Not for clinical use</p>
+    <p>© <span id="year"></span> Mustafa Iqbal</p>
+  </footer>
+</body>
+</html>
