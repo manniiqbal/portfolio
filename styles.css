@@ -69,17 +69,18 @@ a { color: inherit; }
 .logo { font: 500 1.7rem/1 "Newsreader", serif; font-style: italic; text-decoration: none; letter-spacing: -.05em; }
 .logo span { color: var(--moss); }
 nav { display: flex; gap: 42px; }
-nav a { color: var(--sage); font-size: .66rem; letter-spacing: .14em; text-decoration: none; text-transform: lowercase; transition: color .2s; }
+nav a { color: var(--sage); font-size: .64rem; letter-spacing: .08em; text-decoration: none; transition: color .2s; }
+nav a span { margin-right: 5px; color: var(--moss); }
 nav a:hover { color: var(--cream); }
 .menu-button { display: none; }
 
 .hero {
   position: relative;
   min-height: 100svh;
-  padding: 125px 24px 90px;
-  display: grid;
-  place-items: center;
-  text-align: center;
+  padding: 170px max(24px, calc((100% - var(--max)) / 2)) 110px;
+  display: flex;
+  align-items: center;
+  text-align: left;
   overflow: hidden;
 }
 .hero::after {
@@ -92,7 +93,13 @@ nav a:hover { color: var(--cream); }
   letter-spacing: .16em;
   writing-mode: vertical-rl;
 }
-.hero-content { position: relative; z-index: 2; max-width: 850px; }
+.hero-content { position: relative; z-index: 2; width: 100%; max-width: 1000px; }
+.hero-greeting {
+  margin: 0 0 26px;
+  color: var(--moss);
+  font-size: .72rem;
+  letter-spacing: .08em;
+}
 .availability, .section-kicker {
   margin: 0 0 24px;
   color: var(--moss);
@@ -108,10 +115,22 @@ h1 {
   color: var(--cream);
 }
 h1 em { margin-left: .55em; color: var(--sage); font-weight: 400; }
+.hero h1 {
+  max-width: none;
+  font: 500 clamp(4rem, 8vw, 7.7rem)/.92 "Newsreader", serif;
+  letter-spacing: -.06em;
+  white-space: nowrap;
+}
+.hero-tagline {
+  margin: 14px 0 54px;
+  color: #7f8778;
+  font: 400 clamp(2.5rem, 6vw, 5.4rem)/1 "Newsreader", serif;
+  letter-spacing: -.05em;
+}
 .role-line { min-height: 33px; margin: 54px 0 8px; color: var(--paper); font-family: "Newsreader", serif; font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-style: italic; }
 .type-cursor { display: inline-block; width: 1px; height: 1.15em; margin-left: 5px; vertical-align: -.15em; background: var(--moss); animation: blink .9s steps(1) infinite; }
 .hero-summary { max-width: 530px; margin: 0 auto 38px; color: #8f9488; font-size: .75rem; }
-.hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+.hero-actions { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 12px; }
 .button {
   min-width: 154px;
   height: 48px;
@@ -132,7 +151,9 @@ h1 em { margin-left: .55em; color: var(--sage); font-weight: 400; }
 .button-primary:hover { background: var(--sage); border-color: var(--sage); }
 .button-ghost { color: var(--paper); }
 .button-ghost:hover { background: rgba(233,225,210,.06); }
-.scroll-cue { position: absolute; bottom: 23px; left: 50%; color: #62685d; font-size: .54rem; letter-spacing: .15em; text-decoration: none; text-transform: lowercase; transform: translateX(-50%); }
+.hero-github { position: absolute; left: max(24px, calc((100% - var(--max)) / 2)); bottom: 32px; color: #6f766b; font-size: .57rem; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
+.hero-github:hover { color: var(--cream); }
+.scroll-cue { position: absolute; bottom: 23px; right: max(24px, calc((100% - var(--max)) / 2)); left: auto; color: #62685d; font-size: .54rem; letter-spacing: .15em; text-decoration: none; text-transform: lowercase; transform: none; }
 .scroll-cue i { display: block; width: 1px; height: 29px; margin: 8px auto 0; background: linear-gradient(var(--moss), transparent); }
 .orb { position: absolute; border: 1px solid rgba(179, 187, 162, .07); border-radius: 48% 52% 39% 61%; }
 .orb-one { width: 430px; height: 490px; left: -190px; top: 17%; transform: rotate(20deg); }
@@ -191,7 +212,8 @@ h1 em { margin-left: .55em; color: var(--sage); font-weight: 400; }
 .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(50px, 9vw, 120px); }
 .about-copy { color: #64685f; font-size: .73rem; }
 .about-copy .lead { color: var(--ink); font: 400 clamp(1.65rem, 3vw, 2.25rem)/1.38 "Newsreader", serif; }
-.skills-panel { padding: 34px; background: #ded5c4; border: 1px solid rgba(16,19,15,.14); }
+.about-copy p + p { margin-top: 26px; }
+.skills-panel { position: sticky; top: 105px; align-self: start; padding: 34px; background: #ded5c4; border: 1px solid rgba(16,19,15,.14); }
 .panel-label { margin: 0 0 22px; color: #77776c; font-size: .58rem; letter-spacing: .12em; text-transform: lowercase; }
 .skill-list { display: flex; flex-wrap: wrap; gap: 9px; }
 .skill-list span { padding: 9px 13px; border: 1px solid rgba(16,19,15,.17); color: #45483f; font-size: .66rem; }
@@ -333,6 +355,7 @@ footer p:last-child { text-align: right; }
 @media (max-width: 850px) {
   .project-card, .about-grid { grid-template-columns: 1fr; }
   .project-preview { min-height: 440px; }
+  .skills-panel { position: static; }
   .section-intro { display: block; }
   .section-intro > p { margin-top: 24px; }
   footer { grid-template-columns: 1fr 1fr; }
@@ -357,10 +380,13 @@ footer p:last-child { text-align: right; }
   nav { position: absolute; top: 64px; left: 0; right: 0; padding: 26px 20px; display: none; flex-direction: column; gap: 24px; background: rgba(16,19,15,.98); border-bottom: 1px solid var(--line); }
   nav.open { display: flex; }
   nav a { font-size: .75rem; }
-  .hero { min-height: 730px; padding-inline: 20px; }
+  .hero { min-height: 730px; padding: 135px 20px 100px; }
   .hero::after { display: none; }
-  h1 { font-size: clamp(4.4rem, 24vw, 6.5rem); }
+  .hero h1 { font-size: clamp(3.8rem, 18vw, 5.6rem); white-space: normal; }
   h1 em { margin-left: .2em; }
+  .hero-tagline { margin-top: 20px; font-size: clamp(2.4rem, 12vw, 4rem); }
+  .hero-github { left: 20px; }
+  .scroll-cue { right: 20px; }
   .role-line { margin-top: 43px; }
   .section { padding-top: 92px; padding-bottom: 92px; }
   .project-preview { min-height: 370px; padding: 24px; }
