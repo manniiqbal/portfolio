@@ -192,8 +192,43 @@
       </div>
     </section>
 
+    <section class="case-section reflection-section" id="reflection">
+      <div class="case-section-label"><span>10</span><p>Reflection</p></div>
+      <div class="case-section-content reveal">
+        <h2>Technical decisions<br><em>I would keep</em></h2>
+        <p class="case-lead">The most valuable part of this project was not reaching a single performance number. It was learning to make modelling choices that matched the actual triage problem—and to be clear about what the results cannot prove.</p>
+        <div class="reflection-grid">
+          <article>
+            <span>Problem framing</span>
+            <h3>Optimise for the real cost of mistakes</h3>
+            <p>A false negative could delay review, while a false positive mainly adds workload. That asymmetry shaped the weighted loss and the sensitivity-led threshold.</p>
+          </article>
+          <article>
+            <span>Model selection</span>
+            <h3>Trust validation evidence over training accuracy</h3>
+            <p>Training accuracy continued to rise, but validation performance stopped improving. Restoring the epoch-two checkpoint was more defensible than keeping the final model.</p>
+          </article>
+          <article>
+            <span>Evaluation discipline</span>
+            <h3>Keep the test set genuinely held out</h3>
+            <p>The architecture, checkpoint, and threshold were fixed using training and validation data before the test set was evaluated.</p>
+          </article>
+          <article>
+            <span>Honest interpretation</span>
+            <h3>Explainability is not proof</h3>
+            <p>Grad-CAM can reveal model influence, but it cannot confirm disease location. The risk scores are also not calibrated clinical probabilities.</p>
+          </article>
+        </div>
+        <div class="reflection-takeaway">
+          <p>My main takeaway</p>
+          <blockquote>Good machine-learning work is as much about careful framing, evaluation, and limitations as it is about choosing and training a model.</blockquote>
+          <a href="chest-xray-triage-review.md" download>Download the full project review ↓</a>
+        </div>
+      </div>
+    </section>
+
     <section class="case-section future-section">
-      <div class="case-section-label"><span>10</span><p>Next steps</p></div>
+      <div class="case-section-label"><span>11</span><p>Next steps</p></div>
       <div class="case-section-content reveal">
         <div class="future-grid">
           <span>Probability calibration</span>
