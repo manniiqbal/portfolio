@@ -3,147 +3,122 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mustafa Iqbal builds thoughtful software with Python, machine learning, and the web.">
-  <meta name="theme-color" content="#050a16">
-  <title>Mustafa Iqbal — Developer Portfolio</title>
+  <meta name="description" content="Mustafa Iqbal explores mathematics, data science, machine learning, and thoughtful software.">
+  <meta name="theme-color" content="#10130f">
+  <title>Mustafa Iqbal — Maths, Data &amp; Software</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="home-v2">
+  <a class="skip-link" href="#about">Skip to content</a>
   <canvas id="starfield" aria-hidden="true"></canvas>
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="logo" href="#hero" aria-label="Mustafa Iqbal, home">M<span>.</span></a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span class="sr-only">Open navigation</span>
-      <i></i><i></i>
-    </button>
-    <nav id="site-nav" aria-label="Primary navigation">
-      <a href="#about"><span>01.</span> About</a>
-      <a href="#learning"><span>02.</span> Learning</a>
-      <a href="#projects"><span>03.</span> Work</a>
-      <a href="#contact"><span>04.</span> Contact</a>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="hero" id="hero" aria-labelledby="hero-title">
-      <div class="orb orb-one" aria-hidden="true"></div>
-      <div class="orb orb-two" aria-hidden="true"></div>
-      <div class="hero-content reveal">
-        <p class="hero-greeting">Hi, my name is</p>
-        <h1 id="hero-title">Mustafa Iqbal.</h1>
-        <p class="hero-tagline">I build thoughtful software.</p>
-        <div class="hero-actions">
-          <a class="button button-ghost" href="#projects">View my work</a>
-        </div>
+  <main class="portfolio-shell">
+    <aside class="portfolio-sidebar">
+      <div class="sidebar-top">
+        <a class="sidebar-mark" href="#about" aria-label="Mustafa Iqbal, home">M<span>.</span></a>
+        <h1>Mustafa Iqbal</h1>
+        <p class="sidebar-role">Maths, data &amp; software</p>
+        <p class="sidebar-intro">I like understanding how things work, then building them back up for myself.</p>
+        <nav class="section-nav" aria-label="Page sections">
+          <a href="#about"><i></i><span>About</span></a>
+          <a href="#learning"><i></i><span>Learning</span></a>
+          <a href="#projects"><i></i><span>Projects</span></a>
+          <a href="#contact"><i></i><span>Contact</span></a>
+        </nav>
       </div>
-      <a class="hero-github" href="https://github.com/manniiqbal" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-      <a class="scroll-cue" href="#projects"><span>Scroll</span><i aria-hidden="true"></i></a>
-    </section>
-
-    <section class="section projects-section" id="projects" aria-labelledby="projects-title">
-      <div class="section-intro reveal">
-        <div>
-          <p class="section-kicker">Work</p>
-          <h2 id="projects-title">Selected project</h2>
-        </div>
-        <p>Projects that document what I’m learning, how I think, and the problems I’m ready to take on next.</p>
+      <div class="sidebar-socials">
+        <a href="https://github.com/manniiqbal" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub ↗</a>
+        <span>Available for internships</span>
       </div>
+    </aside>
 
-      <article class="project-card reveal">
-        <a class="project-preview xray-preview" href="pneumonia-triage.html" aria-label="Read the Pneumonia X-Ray Triage System case study">
-          <img src="pneumonia_triage_demo.png" alt="Chest X-ray alongside its Grad-CAM model-influence visualisation">
-        </a>
-        <div class="project-copy">
-          <div class="project-topline">
-            <span>Computer vision</span>
-            <span>Featured / 01</span>
-          </div>
-          <div>
-            <h3>Pneumonia X-Ray Triage System</h3>
-            <p>Built an AI-assisted triage system on 28,448 adult frontal chest X-rays. It fine-tunes a pretrained ResNet18, ranks scans by pneumonia-related risk, and uses Grad-CAM to explain individual predictions.</p>
-            <div class="card-metrics" aria-label="Headline project results">
-              <div><strong>0.861</strong><span>Test ROC-AUC</span></div>
-              <div><strong>89.3%</strong><span>Sensitivity</span></div>
+    <div class="portfolio-content">
+      <section class="content-section about-content" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <div class="reveal">
+          <p>Hi there! I’m Mustafa. I’m currently studying <strong>Maths and Data Science</strong>, and I love how much variety there is in what I’m learning. I enjoy stats and pure theory just as much as machine learning and actually building things with data.</p>
+          <p>I still haven’t narrowed down exactly what I want to focus on. That used to bother me, but I’ve realised I quite like being undecided for now. It means I can enjoy different parts of the subject without feeling like I need to choose one too early.</p>
+          <p>What I care about most is understanding <strong>why something works</strong>. I’d rather not run some code or use a model if I don’t properly understand what’s going on underneath it. I tend to slow things down, understand each part properly, and then build everything back up myself. It takes longer, but I enjoy learning that way.</p>
+          <p>I’m still a student, so at the moment that mostly means coursework, side projects, and getting my hands on real data whenever I can. I’m also looking for internships whenever the opportunity comes up, partly so I can get more experience working on real problems and figure out which areas of research interest me most.</p>
+        </div>
+      </section>
+
+      <section class="content-section" id="learning" aria-labelledby="learning-title">
+        <h2 id="learning-title">Learning</h2>
+        <div class="learning-list">
+          <article class="learning-card reveal">
+            <p class="learning-date">Now</p>
+            <div>
+              <h3>Maths &amp; Data Science</h3>
+              <p>Building foundations across statistics, pure mathematics, data analysis, and the reasoning that sits beneath machine-learning methods.</p>
+              <ul>
+                <li>Statistics</li>
+                <li>Pure Maths</li>
+                <li>Data Analysis</li>
+              </ul>
             </div>
-            <ul class="tags" aria-label="Project technologies and skills">
+          </article>
+          <article class="learning-card reveal">
+            <p class="learning-date">Alongside</p>
+            <div>
+              <h3>Independent Projects</h3>
+              <p>Using real datasets to practise the full process: understanding the problem, checking assumptions, building models, evaluating results, and explaining limitations honestly.</p>
+              <ul>
+                <li>Python</li>
+                <li>PyTorch</li>
+                <li>Pandas &amp; NumPy</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section" id="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">Projects</h2>
+        <a class="compact-project reveal" href="pneumonia-triage.html">
+          <div class="compact-project-image">
+            <img src="pneumonia_triage_demo.png" alt="Chest X-ray alongside a Grad-CAM model-influence visualisation">
+          </div>
+          <div class="compact-project-copy">
+            <div class="project-heading">
+              <h3>Pneumonia X-Ray Triage System</h3>
+              <span aria-hidden="true">↗</span>
+            </div>
+            <p>An AI-assisted chest X-ray prioritisation system built on 28,448 adult frontal X-rays using a fine-tuned ResNet18, sensitivity-driven threshold selection, and Grad-CAM explanations.</p>
+            <div class="compact-metrics">
+              <span><strong>0.861</strong> ROC-AUC</span>
+              <span><strong>89.3%</strong> sensitivity</span>
+            </div>
+            <ul>
               <li>Python</li>
               <li>PyTorch</li>
               <li>ResNet18</li>
               <li>Grad-CAM</li>
             </ul>
           </div>
-          <a class="project-link" href="pneumonia-triage.html">
-            Read technical case study <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </article>
+        </a>
+        <p class="projects-note reveal">More work will appear here as I keep learning, experimenting, and finding questions worth investigating.</p>
+      </section>
 
-      <div class="more-work reveal">
-        <span>More work is on the way</span>
-        <p>This portfolio will grow alongside my studies—new challenges, new tools, and a clearer record of my progress.</p>
-      </div>
-    </section>
+      <section class="content-section contact-content" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <div class="reveal">
+          <p>I’m looking for internships and opportunities to work with real problems, learn from experienced people, and explore which areas of research interest me most.</p>
+          <a class="contact-button" href="https://github.com/manniiqbal" target="_blank" rel="noopener noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
 
-    <section class="section about-section" id="about" aria-labelledby="about-title">
-      <div class="section-intro reveal">
-        <div>
-          <p class="section-kicker">Me</p>
-          <h2 id="about-title">About</h2>
-        </div>
-      </div>
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <p class="lead">Hi there! I’m Mustafa. I’m currently studying Maths and Data Science, and I love how much variety there is in what I’m learning. I enjoy stats and pure theory just as much as machine learning and actually building things with data.</p>
-          <p>I still haven’t narrowed down exactly what I want to focus on. That used to bother me, but I’ve realised I quite like being undecided for now. It means I can enjoy different parts of the subject without feeling like I need to choose one too early.</p>
-          <p>What I care about most is understanding why something works. I’d rather not run some code or use a model if I don’t properly understand what’s going on underneath it. I tend to slow things down, understand each part properly, and then build everything back up myself. It takes longer, but I enjoy learning that way.</p>
-          <p>I’m still a student, so at the moment that mostly means coursework, side projects, and getting my hands on real data whenever I can. I’m also looking for internships whenever the opportunity comes up, partly so I can get more experience working on real problems and figure out which areas of research interest me most.</p>
-        </div>
-        <div class="skills-panel reveal" id="learning">
-          <p class="panel-label">Currently exploring</p>
-          <div class="skill-list">
-            <span>Python</span>
-            <span>Statistics</span>
-            <span>Pure Maths</span>
-            <span>Machine Learning</span>
-            <span>PyTorch</span>
-            <span>Pandas &amp; NumPy</span>
-            <span>Git &amp; GitHub</span>
-          </div>
-          <div class="learning">
-            <i aria-hidden="true"></i>
-            <div>
-              <small>Current direction</small>
-              <p>Building strong mathematical foundations, working with real data, and learning how models behave beneath the surface.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="contact-inner reveal">
-        <p class="section-kicker">Get in touch</p>
-        <h2 id="contact-title">Let’s build something<br><span>worth learning from.</span></h2>
-        <p>I’m open to placements, junior opportunities, collaborations, and conversations with people who care about thoughtful technology.</p>
-        <div class="contact-links">
-          <a href="https://github.com/manniiqbal" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-          <a href="#hero">Back to top <span aria-hidden="true">↑</span></a>
-        </div>
-      </div>
-      <footer>
-        <a class="logo" href="#hero">M<span>.</span></a>
-        <p>Built with HTML, CSS &amp; JavaScript</p>
-        <p>© <span id="year"></span> Mustafa Iqbal</p>
+      <footer class="portfolio-footer">
+        <p>Built with curiosity · © <span id="year"></span> Mustafa Iqbal</p>
+        <a href="#about">Back to top ↑</a>
       </footer>
-    </section>
+    </div>
   </main>
 </body>
 </html>
