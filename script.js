@@ -16,6 +16,21 @@ navigation?.querySelectorAll("a").forEach((link) => {
   });
 });
 
+const learningTabs = document.querySelectorAll("[data-learning-tab]");
+const learningPanels = document.querySelectorAll("[data-learning-panel]");
+
+learningTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const selected = tab.dataset.learningTab;
+    learningTabs.forEach((item) => item.classList.toggle("active", item === tab));
+    learningPanels.forEach((panel) => {
+      const active = panel.dataset.learningPanel === selected;
+      panel.classList.toggle("active", active);
+      panel.hidden = !active;
+    });
+  });
+});
+
 document.querySelector("#year").textContent = new Date().getFullYear();
 
 const revealItems = document.querySelectorAll(".reveal");
